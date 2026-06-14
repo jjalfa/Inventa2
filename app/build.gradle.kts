@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
+    //id("com.google.devtools.ksp")
+    //id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -57,10 +59,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.navigation:navigation-compose:2.7.7")
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
+   // val room_version = "2.6.1"
+    //implementation("androidx.room:room-runtime:$room_version")
+    //implementation("androidx.room:room-ktx:$room_version")
+    //ksp("androidx.room:room-compiler:$room_version")
 
 
     val camerax_version = "1.3.3"
@@ -73,4 +75,20 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
     implementation("com.google.zxing:core:3.5.3")
+
+    //sensor de huellas
+    implementation("androidx.biometric:biometric:1.1.0")
+
+    // ✅ AGREGA ESTO PARA FIREBASE ✅
+    // Importa el BoM (Controla las versiones compatibles de Firebase automáticamente)
+    implementation(platform("com.google.firebase:firebase-bom:34.14.1"))
+
+    // La base de datos en la nube que reemplazará a Room
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Opcional, pero sugerido por Firebase para estadísticas básicas
+    implementation("com.google.firebase:firebase-analytics")
+
+    // Herramienta vital para manejar tareas en segundo plano en Kotlin con Firebase
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 }

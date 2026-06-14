@@ -40,16 +40,20 @@ fun RegistroScreen(
     var existeProducto by remember { mutableStateOf(false) }
 
     // Función auxiliar para buscar el producto y rellenar campos si existe
+    // Función auxiliar para buscar el producto en Firestore asíncronamente
     fun verificarProducto(codigo: String) {
         if (codigo.isNotBlank()) {
-            val prod = viewModel.buscarPorCodigo(codigo)
-            if (prod != null) {
-                nombre = prod.nombre
-                categoria = prod.categoria
-                precio = prod.precio.toString()
-                existeProducto = true
-            } else {
-                existeProducto = false
+            // Llamamos a la nueva función asíncrona del ViewModel
+            viewModel.buscarPorCodigoAsync(codigo) { prod ->
+                // Este bloque se ejecuta cuando Firebase nos responde
+                if (prod != null) {
+                    nombre = prod.nombre
+                    categoria = prod.categoria
+                    precio = prod.precio.toString()
+                    existeProducto = true
+                } else {
+                    existeProducto = false
+                }
             }
         } else {
             existeProducto = false
